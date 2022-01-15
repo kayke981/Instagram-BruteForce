@@ -30,4 +30,4 @@ optional arguments:
 
 ## LICENSE
 
-Refer to LICENSE file. `[MIT]`
+Refer to [LICENSE](https://github.com/kayke981/Instagram-BruteForce/blob/main/LICENSE) file. `[MIT]`
