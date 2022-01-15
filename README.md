@@ -8,7 +8,6 @@
 $ git clone 
 $ cd 
 ```
-
 ## Usage:
 ```bash
 $ python3 instagram.py -w path/to/wordlist.txt -u Username_Of_Target
