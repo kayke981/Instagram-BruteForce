@@ -3,6 +3,7 @@ from sys import exit
 from lib.src.brute import Brute
 import sys
 from lib.src.const import version
+import os
 
 def parser_args():
 	parser = argparse.ArgumentParser(description='Brute force instagram for hacking')
@@ -20,7 +21,7 @@ def menu():
 	parser = parser_args()
 	args = parser.parse_args()
 	if args.update:
-		sys.system('git pull')
+		os.system('git pull')
 		sys.exit()
 	if args.version:
 		print(version)
