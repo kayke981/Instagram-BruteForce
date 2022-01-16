@@ -42,7 +42,10 @@ class Browser:
 			session_data['password_field']: enc_password
 		}
 		res = self.browser.post(_login_url, data=data, timeout=ft)
-		return res.json()
+		try:
+			return res.json()
+		except:
+			Debug('[-] ' + str(res.status_code))
 	def user_exist(self):
 		verboseBool = self.verbose
 		res = self.browser.get(session_data['home_url'] + f'{self.username}', timeout=ft)
