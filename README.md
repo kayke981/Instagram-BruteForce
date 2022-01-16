@@ -7,7 +7,7 @@ Instagram BruteForce is for password cracker bruteforce, you can use proxy but i
 ```bash
 $ git clone https://github.com/kayke981/Instagram-BruteForce brute-insta
 $ cd brute-insta
-$ pip install -r requirements.py
+$ pip install -r requirements.txt
 ```
 ## Usage:
 ```bash
