@@ -6,11 +6,12 @@ from lib.src.debug.debug import Debug
 import sys
 
 class Browser:
-	def __init__(self, username = None, password = None, proxy = None):
+	def __init__(self, username = None, password = None, proxy = None, verbose = False):
 		self.username = username
 		self.password = password
 		self.proxy = proxy
 		self.__session = None
+		self.verbose = verbose
 	@property
 	def browser(self):
 		self.__session = None
@@ -43,14 +44,15 @@ class Browser:
 		res = self.browser.post(_login_url, data=data, timeout=ft)
 		return res.json()
 	def user_exist(self):
+		verboseBool = self.verbose
 		res = self.browser.get(session_data['home_url'] + f'{self.username}', timeout=ft)
 		if res.status_code == 404:
-			Debug("[-] User doesn't exist")
+			Debug("[-] User doesn't exist", verbose=self.verbose)
 			exit()
 		elif res.status_code == 200:
-			Debug('[+] User exists')
+			Debug('[+] User exists', verbose=verboseBool)
 		else:
-			Debug(f'[-] Something is wrong, status: {res.status_code}')
+			Debug(f'[-] Something is wrong, status: {res.status_code}', verbose=self.verbose)
 			sys.exit()
 		
 	def login(self):
@@ -61,15 +63,15 @@ class Browser:
 		if res is not None:
 			try:
 				if res['authenticated']:
-					Debug(f'[+] Password found: {self.password}')
-					Debug(f'[*] Informations: \n  Username: {self.username}, \n  Password: {self.password}')
+					Debug(f'[+] Password found: {self.password}', verbose=self.verbose)
+					Debug(f'[*] Informations: \n  Username: {self.username}, \n  Password: {self.password}', verbose=self.verbose)
 					authenticated = True
 					password = self.password
 				else:
-					Debug(f'[-] {self.password} is incorrect')
+					Debug(f'[-] {self.password} is incorrect', verbose=self.verbose)
 					authenticated = False
 			except:
-				Debug(f'[-] {res["message"]}')
+				Debug(f'[-] {res["message"]}', verbose=self.verbose)
 				error = True
 		return {
 			'error': error,

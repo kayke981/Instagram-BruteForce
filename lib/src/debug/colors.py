@@ -6,3 +6,5 @@ class colors:
 	green = "\033[1;32;40m"
 	reset = "\033[0m"
 	critical = "\033[1;37;41m"
+	pink = '\033[1;35;40m'
+	cyan = '\033[1;36;40m'
