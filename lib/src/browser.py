@@ -6,7 +6,7 @@ from lib.src.debug.debug import Debug
 import sys
 
 class Browser:
-	def __init__(self, username = None, password = None, proxy = None, verbose = False):
+	def __init__(self, username = None, password = None, proxy = None, verbose = None):
 		self.username = username
 		self.password = password
 		self.proxy = proxy
@@ -48,7 +48,7 @@ class Browser:
 		res = self.browser.get(session_data['home_url'] + f'{self.username}', timeout=ft)
 		if res.status_code == 404:
 			Debug("[-] User doesn't exist", verbose=self.verbose)
-			exit()
+			sys.exit()
 		elif res.status_code == 200:
 			Debug('[+] User exists', verbose=verboseBool)
 		else:
