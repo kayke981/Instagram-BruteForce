@@ -18,6 +18,7 @@ class Brute:
 		if self._proxy:
 			proxyL = choice(Px(self._proxy).proxy()).replace('\n', '')
 			Browser(username=self._username, password=passwordL, proxy=proxyL).login()
+
 		else:
 			Browser(username=self._username, password=passwordL).login()
 	def start(self):

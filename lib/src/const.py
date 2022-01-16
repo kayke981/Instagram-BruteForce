@@ -22,11 +22,10 @@ user_agents = [
 ft = (10, 16)
 
 headers = {
-	"x-ig-app-id": "936619743392459",
-	"x-instagram-ajax": "2f6bf8b37c04",
-	"x-requested-with": "XMLHttpRequest",
-	"referer": "https://www.instagram.com/",
-	"content-type": "application/x-www-form-urlencoded",
+	"X-Instagram-AJAX": '1',
+	"X-Requested-With": "XMLHttpRequest",
+	"Referer": "https://www.instagram.com/",
+	"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 }
 
 session_data = {
