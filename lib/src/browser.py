@@ -6,7 +6,7 @@ from lib.src.debug.debug import Debug
 import sys
 
 class Browser:
-	def __init__(self, username = None, password = None, proxy = None, verbose = None):
+	def __init__(self, username = None, password = None, proxy = None, verbose = False):
 		self.username = username
 		self.password = password
 		self.proxy = proxy
@@ -21,20 +21,28 @@ class Browser:
 			_session = HTMLSession()
 			_session.headers.update(header)
 			if self.proxy is not None:
-				_session.proxies.update(self.proxy)
+				addr = {'http': f'http://{self.proxies}', 'https': f'https://{self.proxies}'}
+				_session.proxies.update(addr)
 		self.__session = _session
 		return self.__session
 	def csrftoken(self):
-		cookies = self.browser.get(session_data['login_url'].replace('/ajax', ''), timeout=ft).cookies.get_dict()
+		res = self.browser.get(session_data['login_url'].replace('/ajax', ''), timeout=ft)
+		cookies = res.cookies.get_dict()
 		mid = cookies["mid"]
 		id_did = cookies["ig_did"]
 		ig_nrcb = cookies["ig_nrcb"]
 		headers['X-CSRFToken'] = cookies['csrftoken']
 		headers['Cookie'] = f'mid={mid}; ig_did={id_did}; ig_nrcb={ig_nrcb}; rur="missing"; csrftoken={cookies["csrftoken"]}'
+		return {
+			'cookie': headers['Cookie'],
+			'status': res.status_code
+		}
 	def post(self):
 		try:
-			self.csrftoken()
+			cookies = self.csrftoken()
+			Debug(f'[*] Cookies has been setted to {cookies["cookie"]}')
 		except:
+			Debug(f'An error ocurred: {cookies["status"]}')
 			pass
 		enc_password = "#PWD_INSTAGRAM_BROWSER:0:{}:{}".format(int(datetime.now().timestamp()), self.password)
 		data = {

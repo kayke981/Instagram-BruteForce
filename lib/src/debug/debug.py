@@ -6,10 +6,10 @@ class Debug:
 		self.verbose = verbose
 		if verbose == False:
 			self.pprint()
-		else:
+		elif verbose == True:
 			self.verboseLog()
 			if '[*]' in self.message:
-				logging.info(colors.blue + message.replace('[*] ', '') + colors.reset)
+				logging.debug(colors.blue + message.replace('[*] ', '') + colors.reset)
 			if '[+]' in self.message:
 				logging.info(colors.green + message.replace('[+] ', '') + colors.reset)
 			if '[-]' in self.message:

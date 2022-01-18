@@ -34,7 +34,7 @@ class Brute:
 	def start(self):
 		Debug('[*] Starting', verbose=self.verbose)
 		Debug('[*] Checking if the user exists...', verbose=self.verbose)
-		Browser(username=self._username, password='').user_exist()
+		Browser(username=self._username, password='', verbose=self.verbose).user_exist()
 		for i in range(len(Pw(self._password).read())+1):
 			sleep(self._timeout)
 			Thread(target=self.attack, args=(i-1,), daemon=True).start()
