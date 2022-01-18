@@ -21,7 +21,7 @@ class Browser:
 			_session = HTMLSession()
 			_session.headers.update(header)
 			if self.proxy is not None:
-				addr = {'http': f'http://{self.proxies}', 'https': f'https://{self.proxies}'}
+				addr = {'http': f'http://{self.proxy}', 'https': f'https://{self.proxy}'}
 				_session.proxies.update(addr)
 		self.__session = _session
 		return self.__session
