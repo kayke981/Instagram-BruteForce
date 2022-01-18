@@ -9,13 +9,13 @@ class Debug:
 		else:
 			self.verboseLog()
 			if '[*]' in self.message:
-				logging.info(colors.blue + message.replace('[*]', '') + colors.reset)
+				logging.info(colors.blue + message.replace('[*] ', '') + colors.reset)
 			if '[+]' in self.message:
-				logging.info(colors.green + message.replace('[+]', '') + colors.reset)
+				logging.info(colors.green + message.replace('[+] ', '') + colors.reset)
 			if '[-]' in self.message:
-				logging.error(colors.red + message.replace('[-]', '') + colors.reset)
+				logging.error(colors.red + message.replace('[-] ', '') + colors.reset)
 			if '[!]' in self.message:
-				logging.warning(colors.yellow + message.replace('[!]', '') + colors.reset)
+				logging.warning(colors.yellow + message.replace('[!] ', '') + colors.reset)
 	def pprint(self):
 		self.colors()
 	def consoleColor(self, color, message):
