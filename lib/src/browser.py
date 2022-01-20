@@ -40,9 +40,8 @@ class Browser:
 	def post(self):
 		try:
 			cookies = self.csrftoken()
-			Debug(f'[*] Cookies has been setted to {cookies["cookie"]}')
+			Debug(f'[*] Cookies has been setted to {cookies["cookie"]}', verbose=self.verbose)
 		except:
-			Debug(f'An error ocurred: {cookies["status"]}')
 			pass
 		enc_password = "#PWD_INSTAGRAM_BROWSER:0:{}:{}".format(int(datetime.now().timestamp()), self.password)
 		data = {
