@@ -36,8 +36,9 @@ class Brute:
 		Debug('[*] Checking if the user exists...', verbose=self.verbose)
 		Browser(username=self._username, password='', verbose=self.verbose).user_exist()
 		for i in range(len(Pw(self._password).read())+1):
+			key = i - 1
 			sleep(self._timeout)
-			Thread(target=self.attack, args=(i-1,), daemon=True).start()
+			Thread(target=self.attack, args=(key,), daemon=True).start()
 			if self.error:
 				break
 			if self.auth:
