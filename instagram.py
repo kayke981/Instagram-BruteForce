@@ -5,8 +5,8 @@ If have errors with passwords utf-8 or proxies please contact in github
 try:
 	from lib.menu import menu
 	from lib.src.debug.debug import Debug
-except:
-	Debug("[-] Not supported for python 2 please use python 3", verbose=False)
+except ImportError:
+	print("Not supported for python 2 please use python 3", verbose=False)
 import sys
 
 if sys.version_info[0] != 3:
