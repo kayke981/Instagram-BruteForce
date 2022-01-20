@@ -6,11 +6,11 @@ try:
 	from lib.menu import menu
 	from lib.src.debug.debug import Debug
 except ImportError:
-	print("Not supported for python 2 please use python 3", verbose=False)
+	print("Not supported for python 2 please use python 3")
 import sys
 
 if sys.version_info[0] != 3:
-	Debug("[-] Not supported for python 2 please use python 3", verbose=False)
+	print("[-] Not supported for python 2 please use python 3")
 
 if __name__ == "__main__":
 	try:
